@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Title</title>
+</head>
+<style>
+    body {
+        --default-color: #e0e0e0;
+        --active-color: #3498db;
+    }
+    * {
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .progress-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 400px;
+        margin-bottom: 30px;
+    }
+    .circle {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: white;
+        border: 4px solid var(--default-color);
+        font-size: 14px;
+        transition: border-color .2s ease-in-out;
+    }
+    .circle.circle-active {
+        border-color: var(--active-color);
+    }
+    .progress-back {
+        position: absolute;
+        width: 100%;
+        height: 4px;
+        background: var(--default-color);
+        border-radius: 20px;
+    }
+    .progress {
+        position: absolute;
+        left: 0;
+        width: 0;
+        height: 4px;
+        background: var(--active-color);
+        transition: width .4s ease-in-out;
+        border-radius: 20px;
+    }
+    .btn {
+        border-radius: 4px;
+        border: none;
+        color: white;
+        font-size: 12px;
+        width: 60px;
+        height: 30px;
+        background: var(--active-color);
+        cursor: pointer;
+        transition: background-color .3s ease-in-out;
+    }
+    .btn[disabled] {
+        cursor: not-allowed;
+        background: var(--default-color);
+    }
+</style>
+<body>
+<div class="container">
+    <div class="progress-container">
+        <div class="progress-back"></div>
+        <div class="progress"></div>
+        <div class="circle circle-active">1</div>
+        <div class="circle">2</div>
+        <div class="circle">3</div>
+        <div class="circle">4</div>
+    </div>
+    <div>
+        <button class="btn" id="prev" disabled>Prev</button>
+        <button class="btn" id="next">Next</button>
+    </div>
+</div>
+</body>
+<script>
+    let currentIndex = 0;
+    let circleList = document.getElementsByClassName('circle');
+    let prevBtn = document.getElementById('prev');
+    let nextBtn = document.getElementById('next');
+    prevBtn.addEventListener('click', e => {
+        currentIndex--;
+        setProgress();
+        setCircle()
+        setBtn();
+    });
+    nextBtn.addEventListener('click', e => {
+        currentIndex++;
+        setProgress();
+        setCircle()
+        setBtn();
+    })
+    function setProgress() {
+        document.getElementsByClassName('progress').item(0).style.width = `${currentIndex/(circleList.length - 1)*100}%`
+    }
+    function setCircle() {
+        Array.prototype.forEach.call(circleList, (item, index) => {
+            if (index <= currentIndex) item.classList.add('circle-active');
+            else item.classList.remove('circle-active');
+        })
+    }
+    function setBtn() {
+        if (currentIndex <= 0) {
+            prevBtn.setAttribute('disabled', 'true');
+        }
+        else if (currentIndex >= circleList.length - 1) {
+            nextBtn.setAttribute('disabled', 'true');
+        }
+        else {
+            prevBtn.removeAttribute('disabled');
+            nextBtn.removeAttribute('disabled');
+        }
+    }
+</script>
+</html>

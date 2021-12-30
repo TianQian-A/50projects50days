@@ -72,10 +72,10 @@
     </div>
 </body>
 <script>
-    let panels = document.querySelectorAll('.panel');
-    panels.forEach(panel => {
+    let panels = document.getElementsByClassName('panel');
+    Array.prototype.forEach.call(panels, panel => {
         panel.addEventListener('click', res => {
-            panels.forEach(otherPanel => {
+            Array.prototype.forEach.call(panels, otherPanel => {
                 otherPanel.classList.remove('active');
             })
             panel.classList.add('active')
