@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hidden Search Widget</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        box-sizing: border-box;
+    }
+    body {
+        background-color: #333333;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .container {
+        display: flex;
+        background-color: #3498db;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .search-icon {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #3498db;
+        color: white;
+        cursor: pointer;
+    }
+    input {
+        outline: none;
+        height: 50px;
+        padding: 0;
+        border: none;
+        width: 0;
+        transition: all .3s ease-in-out;
+    }
+    .container.active > input {
+        width: 200px;
+        padding: 0 20px;
+    }
+</style>
+<body>
+    <div class="container">
+        <input type="text" placeholder="text something">
+        <div class="search-icon">搜索</div>
+    </div>
+</body>
+<script>
+    let isActive = false;
+    let search = document.getElementsByClassName('search-icon').item(0);
+    let container = document.getElementsByClassName('container').item(0);
+    let input = document.getElementsByTagName('input').item(0);
+    search.addEventListener('click', res => {
+        if (!isActive) {
+            isActive = true;
+            container.classList.add('active');
+            input.focus();
+        }
+        else {
+            isActive = false;
+            container.classList.remove('active');
+        }
+
+    })
+</script>
+</html>
