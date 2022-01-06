@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scroll Animation</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        box-sizing: border-box;
+    }
+    body {
+        background: #444;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+        padding: 10px;
+    }
+    .box {
+        width: 400px;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        font-size: 30px;
+        background: slategrey;
+        border-radius: 12px;
+        margin: 10px 0;
+        opacity: 0;
+        transition: all .3s ease-in-out;
+        box-shadow: 2px 2px 4px 0 rgba(0,0,0, .4);
+    }
+    .box:nth-child(odd) {
+        transform: translateX(-300px);
+    }
+    .box:nth-child(even) {
+        transform: translateX(300px);
+    }
+    .box.active {
+        transform: translateX(0) !important;
+        opacity: 1;
+    }
+</style>
+<body>
+    <h1>滑动查看滚动效果</h1>
+    <div class="box">内容</div>
+    <div class="box">内容</div>
+    <div class="box">内容</div>
+    <div class="box">内容</div>
+    <div class="box">内容</div>
+    <div class="box">内容</div>
+    <div class="box">内容</div>
+    <div class="box">内容</div>
+</body>
+<script>
+    let boxes = document.getElementsByClassName('box');
+    let checkBox = function () {
+        Array.prototype.forEach.call(boxes, box => {
+            if (box.getBoundingClientRect().top < window.innerHeight*4/5) {
+                box.classList.add('active')
+            }
+            else box.classList.remove('active');
+        })
+    }
+    checkBox();
+    window.addEventListener('scroll', checkBox)
+</script>
+</html>
