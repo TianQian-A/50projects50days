@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sound Board</title>
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+    }
+    body {
+        padding-top: 100px;
+        background: #444444;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        color: white;
+    }
+    .btn {
+        padding: 30px 50px;
+        text-align: center;
+        font-size: 18px;
+        background: steelblue;
+        border-radius: 6px;
+        cursor: pointer;
+        margin: 10px;
+    }
+</style>
+<body>
+
+</body>
+<script>
+    let list = ['applause', 'boo', 'gasp', 'tada', 'victory', 'wrong'];
+    let lastSound = null;
+    list.forEach(name => {
+        let audio = document.createElement('audio');
+        audio.src = `./${name}.mp3`;
+        audio.id = name
+        document.body.appendChild(audio);
+        let btn = document.createElement('div');
+        btn.classList.add('btn');
+        btn.innerText = name;
+        btn.addEventListener('click', res => {
+            if (lastSound) {
+                lastSound.pause();
+                lastSound.currentTime = 0;
+            }
+            audio.play();
+            lastSound = audio;
+        })
+        document.body.appendChild(btn);
+    });
+</script>
+</html>

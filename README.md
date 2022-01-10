@@ -8,4 +8,5 @@
 | 05    | [Blurry Loading](https://github.com/TianQian-A/50projects50days/tree/main/blurry-loading)                              | [Demo](https://tianqian-a.github.io/50projects50days/blurry-loading/)                      |
 | 06    | [Scroll Animation](https://github.com/TianQian-A/50projects50days/tree/main/scroll-animation)                          | [Demo](https://tianqian-a.github.io/50projects50days/scroll-animation/)                    |
 | 07    | [Split Landing Page](https://github.com/TianQian-A/50projects50days/tree/main/split-landing-page)                      | [Demo](https://tianqian-a.github.io/50projects50days/split-landing-page/)                  |
-| 08    | [Form Wave](https://github.com/TianQian-A/50projects50days/tree/main/form-wave)                                        | [Demo](https://tianqian-a.github.io/50projects50days/form-wave/)
+| 08    | [Form Wave](https://github.com/TianQian-A/50projects50days/tree/main/form-wave)                                        | [Demo](https://tianqian-a.github.io/50projects50days/form-wave/)                           |
+| 09    | [Sound Board](https://github.com/TianQian-A/50projects50days/tree/main/sound-board)                                    | [Demo](https://tianqian-a.github.io/50projects50days/sound-board/)                         |
