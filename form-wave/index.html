@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Wave</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        box-sizing: border-box;
+        color: white;
+    }
+    body {
+        /*background-color: cadetblue;*/
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, steelblue, cadetblue);
+    }
+    .container {
+        width: 360px;
+        height: 420px;
+        background-color: rgba(0,0,0,.2);
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px;
+    }
+    .form-wrap {
+        display: flex;
+        width: 100%;
+        padding: 20px 0 40px;
+        position: relative;
+    }
+    input {
+        width: 100%;
+        padding: 10px 0;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        border-bottom: 2px solid white;
+        font-size: 20px;
+    }
+    input:-internal-autofill-previewed,
+    input:-internal-autofill-selected {
+        -webkit-text-fill-color: #FFFFFF !important;
+        transition: background-color 5000s ease-in-out 0s !important;
+    }
+    label {
+        position: absolute;
+        top: 30px;
+        cursor: text;
+    }
+    span {
+        display: inline-block;
+        transition: all .2s ease-in-out;
+    }
+    input:focus,input:valid {
+        border-bottom-color: deepskyblue;
+    }
+    input:focus + label span,
+    input:valid + label span
+    {
+        position: relative;
+        transform: translateY(-30px);
+        color: deepskyblue;
+    }
+    .btn {
+        width: 100%;
+        height: 50px;
+        border-radius: 4px;
+        border: none;
+        background: dodgerblue;
+        cursor: pointer;
+    }
+    .btn:active {
+        transform: scale(.98);
+    }
+    p {
+        text-align: right;
+        font-size: 12px;
+        margin-top: 30px;
+    }
+    a {
+        color: deepskyblue;
+    }
+</style>
+<body>
+    <div class="container">
+        <h1>请登录</h1>
+        <form action="">
+            <div class="form-wrap">
+                <input type="text" required id="account">
+                <label for="account">
+                   Email
+                </label>
+            </div>
+            <div class="form-wrap">
+                <input type="password" required id="password">
+                <label for="password">
+                    Password
+                </label>
+            </div>
+            <button class="btn">登录</button>
+            <p>还没有账号？<a href="#">注册</a></p>
+        </form>
+    </div>
+</body>
+<script>
+    let labels = document.getElementsByTagName('label');
+    Array.prototype.forEach.call(labels, (label) => {
+        label.innerHTML = label.innerText.split('').map((str, index) => `<span style="transition-delay: ${50*index}ms">${str}</span>`).join('')
+    })
+</script>
+</html>
