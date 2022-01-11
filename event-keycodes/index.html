@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event KeyCodes</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        box-sizing: border-box;
+    }
+    body {
+        background-color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+    .box {
+        position: relative;
+        min-width: 120px;
+        padding: 20px;
+        text-align: center;
+        background-color: #e0e0e0;
+        box-shadow: 1px 1px 2px 0 rgba(255,255,255, .8);
+        margin: 10px;
+    }
+    small {
+        position: absolute;
+        top: -24px;
+        left: 0;
+        color: #e0e0e0;
+        width: 100%;
+    }
+</style>
+<body>
+    <div class="box">Press any key to get keyCode</div>
+</body>
+<script>
+    window.addEventListener('keydown', res => {
+        console.log(res.defaultPrevented)
+        document.body.innerHTML = `
+            <div class="box">${res.key}<small>event.key</small></div>
+            <div class="box">${res.keyCode}<small>event.keyCode</small></div>
+            <div class="box">${res.code}<small>event.code</small></div>
+        `;
+        res.preventDefault();
+    })
+</script>
+</html>
