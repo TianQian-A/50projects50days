@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FAQ Collapse</title>
+</head>
+<style>
+    @font-face {
+        font-family: "iconfont"; /* Project id 835771 */
+        src: url('iconfont.woff2?t=1641967968646') format('woff2');
+    }
+
+    .iconfont {
+        font-family: "iconfont" !important;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        position: absolute;
+        right: 30px;
+        top: 36px;
+    }
+
+    .icon-down:before {
+        content: "\e665";
+        font-weight: 900;
+    }
+
+    .icon-closefill:before {
+        content: "\e668";
+        color: white;
+        padding: 6px;
+        border-radius: 50%;
+        background-color: #9fa4a8;
+        margin-right: -6px;
+    }
+    * {
+        margin: 0;
+        box-sizing: border-box;
+    }
+    body {
+        background-color: #e0e0e0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top: 30px;
+    }
+    .container {
+        max-width: 600px;
+    }
+    .box {
+        position: relative;
+        max-width: 600px;
+        padding: 30px;
+        margin: 10px 30px;
+        border: 1px solid #999;
+        border-radius: 8px;
+        text-align: left;
+        cursor: pointer;
+        transition: background-color .2s ease-in-out;
+        overflow: hidden;
+    }
+    .box::after {
+        font-family: "iconfont";
+        content: "\e669";
+        position: absolute;
+        z-index: 0;
+        font-size: 80px;
+        opacity: 0;
+        color: #3498db;
+        left: 0;
+        top: 0;
+        transform: rotateY(-180deg);
+    }
+    h3 {
+        margin-right: 50px;
+    }
+    p {
+        display: none;
+        margin-top: 20px;
+    }
+    .box .icon-closefill {
+        display: none;
+    }
+    .box.active {
+        box-shadow: 2px 2px 4px 0 rgba(0,0,0,.3);
+        background-color: white;
+    }
+    .active.box::after {
+        opacity: .2;
+        transition: opacity .3s ease-in-out;
+    }
+    .box.active p {
+        display: block;
+    }
+    .box.active .icon-down {
+        display: none;
+    }
+    .box.active .icon-closefill {
+        display: block;
+    }
+    .box:first-of-type {
+        margin-top: 30px;
+    }
+
+</style>
+<body>
+<h1>Frequently Asked Questions</h1>
+<div class="container">
+    <div class="box">
+        <h3>What's the object-oriented way to become wealthy?</h3>
+        <p>Inheritance.</p>
+        <div class="btn iconfont icon-closefill"></div>
+        <div class="btn iconfont icon-down"></div>
+    </div>
+    <div class="box">
+        <h3>Why shouldn't we trust atoms?</h3>
+        <p>They make up everything</p>
+        <div class="btn iconfont icon-closefill"></div>
+        <div class="btn iconfont icon-down"></div>
+    </div>
+    <div class="box">
+        <h3>What do you call someone with no body and no nose?</h3>
+        <p>Nobody knows.</p>
+        <div class="btn iconfont icon-closefill"></div>
+        <div class="btn iconfont icon-down"></div>
+    </div>
+    <div class="box">
+        <h3>How many tickles does it take to tickle an octopus?</h3>
+        <p>Ten-tickles!</p>
+        <div class="btn iconfont icon-closefill"></div>
+        <div class="btn iconfont icon-down"></div>
+    </div>
+    <div class="box">
+        <h3>What is: 1 + 1?</h3>
+        <p>Depends on who are you asking.</p>
+        <div class="btn iconfont icon-closefill"></div>
+        <div class="btn iconfont icon-down"></div>
+    </div>
+</div>
+
+</body>
+<script>
+    let boxes = document.getElementsByClassName('box');
+    Array.prototype.forEach.call(boxes, box => {
+        box.addEventListener('click', res => {
+            box.classList.toggle('active');
+        })
+        box.onselectstart = function () {
+            return false;
+        }
+    })
+</script>
+</html>
