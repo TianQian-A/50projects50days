@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Animated Navigation</title>
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+    }
+    :root {
+        --ani-time: .6s;
+    }
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background: linear-gradient(lightblue 50%, steelblue 50%);
+    }
+    .container {
+        padding: 20px;
+        background: white;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+        border-radius: 6px;
+        overflow: hidden;
+        display: flex;
+    }
+    ul {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        overflow: hidden;
+        list-style-type: none;
+        padding: 0;
+        width: 0;
+        transition: width var(--ani-time) ease-in-out;
+    }
+    .active ul {
+        width: 400px;
+    }
+    li {
+        cursor: pointer;
+        opacity: 0;
+        transform: rotateY(0);
+        transition: transform var(--ani-time) ease-in-out, opacity var(--ani-time) ease-in-out, color .1s ease-in-out;
+    }
+    li:hover {
+        color: dodgerblue;
+    }
+    .active li {
+        opacity: 1;
+        transform: rotateY(360deg);
+    }
+    button {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        background: transparent;
+        border: none;
+        width: 30px;
+        height: 30px;
+        padding: 10px 5px;
+        flex-shrink: 0;
+        cursor: pointer;
+    }
+    .line {
+        width: 100%;
+        height: 2px;
+        background: dodgerblue;
+        left: 5px;
+        top: 10px;
+        transition: transform var(--ani-time) ease-in-out;
+    }
+    .active .line:nth-child(1) {
+        transform: rotate(-765deg) translateY(5.5px);
+    }
+    .active .line:nth-child(2) {
+        transform: rotate(765deg) translateY(-5px);
+    }
+</style>
+<body>
+<nav class="container">
+    <ul>
+        <li>Home</li>
+        <li>Works</li>
+        <li>About</li>
+        <li>Contact</li>
+    </ul>
+    <button>
+        <div class="line"></div>
+        <div class="line"></div>
+    </button>
+</nav>
+</body>
+<script>
+    document.getElementsByTagName('button').item(0).addEventListener('click', res => {
+        document.getElementsByClassName('container').item(0).classList.toggle('active')
+    })
+</script>
+</html>
