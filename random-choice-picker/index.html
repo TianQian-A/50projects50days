@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Choice Picker</title>
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+    }
+    body {
+        background-color: steelblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        color: white;
+    }
+    textarea {
+        margin-top: 20px;
+        width: 500px;
+        height: 200px;
+        padding: 10px;
+        resize: none;
+    }
+    .options-box {
+        max-width: 500px;
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .options-box div {
+        padding: 4px 10px;
+        border-radius: 4px;
+        background-color: #999;
+        margin: 5px;
+    }
+    .options-box div.active {
+        background-color: darkseagreen;
+        color: white;
+    }
+</style>
+<body>
+    <label>
+        <textarea placeholder="输入你的选项并用 ，分隔。按 Enter 开始选择。"></textarea>
+    </label>
+    <div class="options-box"></div>
+</body>
+<script>
+    let textarea = document.getElementsByTagName('textarea').item(0)
+    textarea.addEventListener('keypress', res => {
+        setList(textarea.value);
+        if (res.key === 'Enter' && textarea.value) {
+            textarea.value = '';
+            randomChoice()
+            res.preventDefault();
+        }
+    })
+    function setList(value) {
+        let list = value.split(/[,，\n]/).filter(item => !!item);
+        document.getElementsByClassName('options-box').item(0).innerHTML = list.map(item => `<div class="box">${item}</div>`).join('')
+    }
+    function randomChoice() {
+        let boxDomes = document.getElementsByClassName('box');
+        textarea.disabled = true;
+        let aniTime = 3000, intervalTime = 100;
+        let aniTimer = setInterval(() => {
+            if (aniTime <= 0) {
+                clearInterval(aniTimer);
+                textarea.disabled = false;
+            }
+            aniTime-=intervalTime;
+            Array.prototype.forEach.call(boxDomes, item => item.classList.remove('active'));
+            boxDomes.item(Math.floor(Math.random() * boxDomes.length)).classList.add('active');
+        }, intervalTime)
+    }
+</script>
+</html>

@@ -13,3 +13,4 @@
 | 10    | [Dad Joke](https://github.com/TianQian-A/50projects50days/tree/main/dad-joke)                                          | [Demo](https://tianqian-a.github.io/50projects50days/dad-joke/)                            |
 | 11    | [Event KeyCodes](https://github.com/TianQian-A/50projects50days/tree/main/event-keycodes)                              | [Demo](https://tianqian-a.github.io/50projects50days/event-keycodes/)                      |
 | 12    | [FAQ Collapse](https://github.com/TianQian-A/50projects50days/tree/main/faq-collapse)                                  | [Demo](https://tianqian-a.github.io/50projects50days/faq-collapse/)                        |
+| 13    | [Random Choice Picker](https://github.com/TianQian-A/50projects50days/tree/main/random-choice-picker)                  | [Demo](https://tianqian-a.github.io/50projects50days/random-choice-picker/)                |
