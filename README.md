@@ -15,5 +15,5 @@
 | 12  | [FAQ Collapse](https://github.com/TianQian-A/50projects50days/tree/main/faq-collapse)                                   |         [Demo](https://tianqian-a.github.io/50projects50days/faq-collapse/)          |
 | 13  | [Random Choice Picker](https://github.com/TianQian-A/50projects50days/tree/main/random-choice-picker)                   |     [Demo](https://tianqian-a.github.io/50projects50days/random-choice-picker/)      |
 | 14  | [Animated Navigation](https://github.com/TianQian-A/50projects50days/tree/main/animated-navigation)                     |      [Demo](https://tianqian-a.github.io/50projects50days/animated-navigation/)      |
-| 15  | [Increment Counter](https://github.com/TianQian-A/50projects50days/tree/main/increment-counter)                         |      [Demo](https://tianqian-a.github.io/50projects50days/increment-counter/)        |
-
+| 15  | [Increment Counter](https://github.com/TianQian-A/50projects50days/tree/main/increment-counter)                         |       [Demo](https://tianqian-a.github.io/50projects50days/increment-counter/)       |
+| 16  | [Drink Water](https://github.com/TianQian-A/50projects50days/tree/main/drink-water)                                     |          [Demo](https://tianqian-a.github.io/50projects50days/drink-water/)          |
