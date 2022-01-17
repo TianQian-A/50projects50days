@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Increment Counter</title>
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+    }
+    body {
+        background: cadetblue;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+    @font-face {
+        font-family: "iconfont"; /* Project id 3140327 */
+        src: url('iconfont.woff2?t=1642401149374') format('woff2')
+    }
+
+    .iconfont {
+        font-family: "iconfont" !important;
+        font-size: 50px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        margin-bottom: 12px;
+    }
+
+    .icon-facebook:before {
+        content: "\eb8d";
+    }
+
+    .icon-twitter:before {
+        content: "\eced";
+    }
+
+    .icon-youtube:before {
+        content: "\ed20";
+    }
+    .box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 40px;
+    }
+    h1 {
+        font-size: 50px;
+    }
+</style>
+<body>
+<div class="box">
+    <div class="icon-twitter iconfont"></div>
+    <h1 data-target="12000">0</h1>
+    <div>Twitter Followers</div>
+</div>
+<div class="box">
+    <div class="icon-youtube iconfont"></div>
+    <h1 data-target="5000">0</h1>
+    <div>Twitter Followers</div>
+</div>
+<div class="box">
+    <div class="icon-facebook iconfont"></div>
+    <h1 data-target="7500">0</h1>
+    <div>Twitter Followers</div>
+</div>
+</body>
+<script>
+    let h1s = document.getElementsByTagName('h1');
+    Array.prototype.forEach.call(h1s, item => {
+        let target = +item.dataset.target;
+        let singleIncrement = target/200;
+        let timer = setInterval(() => {
+            let cur = +item.innerText;
+            if (cur >= target) {
+                item.innerText = target;
+                clearInterval(timer);
+            }
+            else item.innerText = Math.ceil(cur + singleIncrement);
+        }, 1)
+    })
+</script>
+</html>
