@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Movie App</title>
+</head>
+<style>
+    :root {
+        --bg-color: #22254b;
+        --bg-color-sec: #373b69;
+        --rate-color: orange;
+    }
+    html, body {
+        background: var(--bg-color);
+        padding: 0;
+        margin: 0;
+    }
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background: var(--bg-color-sec);
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 30px;
+    }
+    header > .search-box {
+        background: var(--bg-color-sec);
+        padding: 10px 10px;
+        border-radius: 30px;
+        width: 200px;
+        border: 2px solid var(--bg-color);
+        line-height: 14px;
+        font-size: 14px;
+        color: white;
+    }
+    header > .search-box::placeholder {
+        color: #7378c5;
+    }
+    header > .search-box:focus {
+        outline: none;
+        background: var(--bg-color);
+    }
+    main {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+    .card-box {
+        position: relative;
+        width: 300px;
+        margin: 10px;
+        background-color: var(--bg-color-sec);
+        border-radius: 4px;
+        box-shadow: 0 4px 5px rgba(0,0,0,.2);
+        overflow: hidden;
+    }
+    .card-box > .card-overview {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 100%;
+        max-height: 100%;
+        background-color: white;
+        font-size: 16px;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+    .card-box:hover > .card-overview {
+        transform: translateY(-100%);
+        transition: transform .3s ease-in-out;
+    }
+    .card-box > .card-cover {
+        width: 300px;
+        height: 450px;
+        object-fit: cover;
+    }
+    .card-box > .card-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        height: 100px;
+        box-sizing: border-box;
+        padding: 10px;
+        font-weight: bold;
+    }
+    .card-box > .card-info > .card-info__title {
+        flex: 1;
+        color: white;
+        margin-top: 0;
+    }
+    .card-box > .card-info > .card-info__rate {
+        padding: 3px 6px;
+        border-radius: 3px;
+        background-color: var(--bg-color);
+        color: var(--rate-color);
+        margin-left: 5px;
+    }
+</style>
+<body>
+<header>
+    <input id="search" class="search-box" placeholder="Search"/>
+</header>
+<main>
+
+</main>
+</body>
+<script>
+    const API_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=1';
+    const IMG_PATH = 'https://image.tmdb.org/t/p/w1280';
+    const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=3fd2be6f0c70a2a598f084ddfb75487c&query="';
+    let searching = false;
+    async function getMovie() {
+        let data = await fetch(API_URL).then(res => {
+            return res.json()
+        })
+        renderMovies(data.results);
+    }
+    function renderMovies(movies) {
+        let mainDom = document.querySelector('main');
+        mainDom.innerHTML = `<!---->`
+        for (let i = 0; i < movies.length; i++) {
+            let singleMovieDom = document.createElement('div');
+            singleMovieDom.classList.add('card-box')
+            singleMovieDom.innerHTML = `
+                <img class="card-cover" src="${IMG_PATH + movies[i].poster_path}" />
+                <div class="card-info">
+                    <h3 class="card-info__title">${movies[i].title}</h3>
+                    <span class="card-info__rate">${movies[i].vote_average}</span>
+                </div>
+                <div class="card-overview">${movies[i].overview}</div>
+            `
+            mainDom.appendChild(singleMovieDom)
+        }
+    }
+    function listenSearch() {
+        let searchBox = document.querySelector('#search');
+        searchBox.addEventListener('keyup', async function (event) {
+            if (event.keyCode !== 13 || searching || !searchBox.value) return;
+            let data = await fetch(`${SEARCH_API}${searchBox.value}`).then(res => res.json());
+            renderMovies(data.results);
+        })
+    }
+    listenSearch();
+    getMovie()
+</script>
+</html>
