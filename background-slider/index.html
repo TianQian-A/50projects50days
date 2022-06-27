@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Background Slider</title>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.1.1/css/all.css">
+
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background: no-repeat center/cover url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80');
+        background-size: 120% 120% !important;
+        transition: background .3s ease-in-out;
+    }
+    body::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,.4);
+    }
+    .container {
+        position: fixed;
+        z-index: 1;
+        width: 80vw;
+        height: 80vh;
+        top: 10vh;
+        left: 10vw;
+        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    }
+    .slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+    }
+    .slide.active {
+        opacity: 1;
+    }
+    .slide:nth-child(1) {
+        background: no-repeat center/cover url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80');
+    }
+    .slide:nth-child(2) {
+        background: no-repeat center/cover url('https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80');
+    }
+    .slide:nth-child(3) {
+        background: no-repeat center/cover url('https://images.unsplash.com/photo-1495467033336-2effd8753d51?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80');
+    }
+    .slide:nth-child(4) {
+        background: no-repeat center/cover url('https://images.unsplash.com/photo-1522735338363-cc7313be0ae0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80');
+    }
+    .slide:nth-child(5) {
+        background: no-repeat center/cover url('https://images.unsplash.com/photo-1559087867-ce4c91325525?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80');
+    }
+    .slide-btn {
+        position: fixed;
+        z-index: 1;
+        top: calc(50vh - 25px);
+        left: calc(10vw - 50px - 10px);
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        font-size: 24px;
+        border: 2px solid silver;
+        border-radius: 50%;
+        color: white;
+        background-color: #282936;
+        outline: none;
+    }
+    .slide-btn:nth-of-type(2) {
+        left: calc(90vw + 10px);
+    }
+    .slide-btn:hover {
+        background-color: rgba(41, 42, 55, .85);
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="slide active"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+    </div>
+    <button id="left" class="slide-btn" type="button">
+        <i class="fa-solid fa-angle-left"></i>
+    </button>
+    <button id="right" class="slide-btn" type="button">
+        <i class="fa-solid fa-angle-right"></i>
+    </button>
+</body>
+<script>
+    let body = document.querySelector('body')
+    let activeIndex = 0;
+    let slideList = document.querySelectorAll('.slide');
+    let preBtn = document.getElementById('left');
+    let nextBtn = document.getElementById('right');
+    function toggle(isNext) {
+        let nextIndex;
+        if (isNext) {
+            nextIndex = activeIndex + 1 >= slideList.length ? 0 : activeIndex + 1;
+        }
+        else {
+            nextIndex = activeIndex - 1 < 0 ? slideList.length - 1 : activeIndex - 1;
+        }
+        slideList[activeIndex].classList.remove('active');
+        slideList[nextIndex].classList.add('active');
+        console.log(window.getComputedStyle(slideList[nextIndex], null).background)
+        body.style.background = window.getComputedStyle(slideList[nextIndex], null).background;
+        activeIndex = nextIndex;
+    }
+    preBtn.addEventListener('click', function () { toggle(false) })
+    nextBtn.addEventListener('click', function () { toggle(true) })
+
+</script>
+</html>
