@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset ="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Button Ripple Effect</title>
+</head>
+<style>
+    @font-face {
+        font-family: 'Heebo';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/heebo/v20/NGSpv5_NC0k9P_v6ZUCbLRAHxK1E1yysdUmm.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background-color: #282936;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    button {
+        position: relative;
+        font-family: 'Heebo', sans-serif;
+        font-weight: bold;
+        letter-spacing: 1px;
+        width: 130px;
+        height: 60px;
+        cursor: pointer;
+        background-color: white;
+        overflow: hidden;
+    }
+    button > .circle {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background-color: #3494e4;
+        transform-origin: center center;
+        transform: translate(-50%, -50%) scale(0);
+        opacity: .6;
+        z-index: 0;
+        animation: scale .6s ease-out;
+    }
+    @keyframes scale {
+        to {
+            transform: translate(-50%, -50%) scale(3);
+            opacity: 0;
+        }
+    }
+
+</style>
+<body>
+    <button id="button">CLICK ME</button>
+</body>
+<script>
+    let buttonDom = document.getElementById("button");
+    buttonDom.addEventListener('click', function(e) {
+        let circle = document.createElement('div');
+        circle.classList.add('circle');
+        circle.style.left = e.clientX - buttonDom.offsetLeft + 'px';
+        circle.style.top = e.clientY - buttonDom.offsetTop + 'px';
+        buttonDom.appendChild(circle)
+        let timer = setTimeout(() => {
+            clearTimeout(timer);
+            circle.remove();
+        }, 600)
+    })
+</script>
+</html>
