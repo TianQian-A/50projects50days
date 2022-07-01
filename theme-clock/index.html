@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Theme Clock</title>
+</head>
+<style>
+    /* hebrew */
+    @font-face {
+        font-family: 'Heebo';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/heebo/v20/NGSpv5_NC0k9P_v6ZUCbLRAHxK1E1yysd0mm_00.woff2) format('woff2');
+        unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+    }
+    /* latin */
+    @font-face {
+        font-family: 'Heebo';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/heebo/v20/NGSpv5_NC0k9P_v6ZUCbLRAHxK1E1yysdUmm.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    :root {
+        --basic-text-color: black;
+        --basic-bg-color: white;
+        --red-color: #F87171;
+        --blue-color: #60A5FA;
+        --transition-time: .3s;
+        --transition: all var(--transition-time) ease-in-out;
+    }
+    html.dark {
+        --basic-text-color: white;
+        --basic-bg-color: black;
+    }
+    body {
+        font-family: 'Heebo';
+        background-color: var(--basic-bg-color);
+        transition: var(--transition);
+        margin: 0;
+        padding: 0;
+        color: var(--basic-text-color);
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    button {
+        color: var(--basic-bg-color);
+        background-color: var(--basic-text-color);
+        line-height: 14px;
+        padding: .6rem 1rem;
+        border: none;
+        border-radius: .3rem;
+        transition: var(--transition);
+        margin: 5rem 0;
+        cursor: pointer;
+    }
+    .clock-box {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 350px;
+        height: 350px;
+    }
+    .clock-box-center {
+        width: 12px;
+        height: 12px;
+        box-sizing: border-box;
+        border: 3px solid var(--red-color);
+        border-radius: 50%;
+        background-color: var(--blue-color);
+        z-index: 3;
+        transition: var(--transition);
+    }
+    .clock-line {
+        width: 3px;
+        position: absolute;
+        bottom: 50%;
+        background-color: var(--basic-text-color);
+        transition: color var(--transition-time) ease-in-out, transform .3s linear;
+        transform-origin: center bottom;
+    }
+    .clock-line__h {
+        height: 70px;
+        z-index: 1;
+        background-color: var(--blue-color);
+    }
+    .clock-line__m {
+        height: 100px;
+    }
+    .clock-line__s {
+        z-index: 2;
+        height: 100px;
+        background-color: var(--red-color);
+    }
+    .time-text {
+        font-size: 60px;
+        color: var(--basic-text-color);
+        transition: var(--transition);
+    }
+    .date-text {
+        color: #999;
+        letter-spacing: 1px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .date-text__circle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        letter-spacing: 0;
+        background-color: var(--basic-text-color);
+        color: var(--basic-bg-color);
+        transition: var(--transition);
+    }
+</style>
+<body>
+<button id="toggle">Dark Mode</button>
+<div class="clock-box">
+    <div class="clock-box-center"></div>
+    <div class="clock-line clock-line__h" data-round="1"></div>
+    <div class="clock-line clock-line__m" data-round="1"></div>
+    <div class="clock-line clock-line__s" data-round="1"></div>
+</div>
+<div id="timeText" class="time-text">-- : --</div>
+<div id="dateText" class="date-text"></div>
+</body>
+<script>
+    let nowDate = new Date();
+    let htmlDom = document.querySelector('html');
+    let toggleDom = document.getElementById('toggle');
+    let timeTextDom = document.getElementById('timeText');
+    let hLine = document.querySelector('.clock-line__h');
+    let mLine = document.querySelector('.clock-line__m');
+    let sLine = document.querySelector('.clock-line__s');
+    toggleDom.addEventListener('click', function(e) {
+        let toggleText = 'Dark Mode';
+        if (Array.from(htmlDom.classList).includes('dark')) {
+            htmlDom.classList.remove('dark')
+        }
+        else {
+            htmlDom.classList.add('dark');
+            toggleText = 'Light Mode';
+        }
+        toggleDom.innerText = toggleText
+    })
+    function setTimer() {
+        nowDate = new Date();
+        setTimeText();
+        setDateText();
+        setInterval(() => {
+            nowDate.setMilliseconds(nowDate.getMilliseconds() + 1000);
+            setLine();
+            setTimeText()
+        }, 1000)
+    }
+    function setTimeText() {
+        let text = nowDate.toUTCString().split(' ')[4];
+        timeTextDom.innerText = `${text.slice(0, 2) - nowDate.getTimezoneOffset() / 60} : ${text.slice(3, 5)}`
+    }
+    function setDateText() {
+        let timeArr = nowDate.toUTCString().split(' ');
+        document.getElementById('dateText').innerHTML = `${timeArr[0]} ${timeArr[2]} <span class="date-text__circle">${timeArr[1]}</span>`
+    }
+    function calcDeg(val, max, dom) {
+        let deg = 360 * Math.floor(val / max * 1000) / 1000;
+        let round = parseInt(dom.dataset.round)
+        if (deg === 0) {
+            round = round + 1;
+            dom.dataset.round = String(round)
+        }
+        return deg + 360 * (round - 1);
+    }
+    function setLine() {
+        let hourToSeconds = nowDate.getHours() * 60 * 60 + nowDate.getMinutes() * 60 + nowDate.getSeconds();
+        let minutesToSeconds = nowDate.getMinutes() * 60 + nowDate.getSeconds();
+        let seconds = nowDate.getSeconds();
+        sLine.setAttribute('style', `transform: rotate(${calcDeg(seconds, 60, sLine)}deg)`)
+        mLine.setAttribute('style', `transform: rotate(${calcDeg(minutesToSeconds, 60 * 60, mLine)}deg)`)
+        hLine.setAttribute('style', `transform: rotate(${calcDeg(hourToSeconds, 12 * 60 * 60, hLine)}deg)`)
+    }
+    setTimer();
+</script>
+</html>

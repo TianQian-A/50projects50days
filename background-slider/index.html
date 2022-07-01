@@ -115,7 +115,6 @@
         }
         slideList[activeIndex].classList.remove('active');
         slideList[nextIndex].classList.add('active');
-        console.log(window.getComputedStyle(slideList[nextIndex], null).background)
         body.style.background = window.getComputedStyle(slideList[nextIndex], null).background;
         activeIndex = nextIndex;
     }
