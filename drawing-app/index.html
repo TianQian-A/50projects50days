@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Drawing App</title>
+</head>
+<style>
+    body {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .container {
+        width: 700px;
+        height: 750px;
+        border: 2px solid #282936;
+        overflow: hidden;
+    }
+    canvas {
+        display: flex;
+    }
+    .toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100px;
+        background-color: #282936;
+    }
+    .tool-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        margin: 0 5px;
+        cursor: pointer;
+        background-color: white;
+        user-select: none;
+    }
+    .left {
+        display: flex;
+        align-items: center;
+    }
+</style>
+<body>
+    <div class="container">
+        <canvas id="canvas" width="700" height="650"></canvas>
+        <div class="toolbar">
+            <div class="left">
+                <div class="tool-box size-btn" data-type="minus">-</div>
+                <div class="tool-box" id="sizeText">10</div>
+                <div class="tool-box size-btn" data-type="add">+</div>
+                <input class="tool-box" id="colorInput" type="color" />
+            </div>
+            <div class="tool-box" id="clearBtn">X</div>
+        </div>
+    </div>
+</body>
+<script>
+    const colorInput = document.getElementById('colorInput');
+    const sizeButtons = document.querySelectorAll('.size-btn');
+    const sizeText = document.getElementById('sizeText');
+    const clearBtn = document.getElementById('clearBtn');
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext('2d');
+    const MAX_SIZE = 50;
+    const MIN_SIZE = 5;
+    const STEP_SIZE = 5;
+    let size = 10;
+    let color = '#000000';
+    let cx, cy;
+    let isPressed = false;
+    colorInput.addEventListener('change', function(e) {
+        color = e.target.value;
+    })
+    sizeButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            let type = e.target.dataset.type;
+            if (type === 'add' && size < MAX_SIZE) {
+                size = size + STEP_SIZE > MAX_SIZE ? MAX_SIZE : size + STEP_SIZE;
+            }
+            else if (type === 'minus' && size > MIN_SIZE) {
+                size = size - STEP_SIZE < MIN_SIZE ? MIN_SIZE : size - STEP_SIZE;
+            }
+            sizeText.innerText = size
+        })
+    })
+    clearBtn.addEventListener('click', function(e) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    })
+    canvas.addEventListener('click', function(e) {
+       drawCircle(e.offsetX, e.offsetY)
+    })
+    canvas.addEventListener('mousedown', function(e) {
+        isPressed = true;
+        cx = e.offsetX;
+        cy = e.offsetY;
+    })
+    canvas.addEventListener('mousemove', function(e) {
+        if (!isPressed) return;
+        drawCircle(e.offsetX, e.offsetY);
+        drawLine(cx, cy, e.offsetX, e.offsetY)
+        cx = e.offsetX;
+        cy = e.offsetY;
+    })
+    canvas.addEventListener('mouseup', function(e) {
+        isPressed = false;
+    })
+    function drawCircle(x, y) {
+        ctx.beginPath();
+        ctx.arc(x, y, size , 0, Math.PI * 2)
+        ctx.fillStyle = color;
+        ctx.fill()
+    }
+    function drawLine(x1, y1, x2, y2) {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.lineWidth = size * 2;
+        ctx.strokeStyle = color;
+        ctx.stroke();
+    }
+</script>
+</html>
