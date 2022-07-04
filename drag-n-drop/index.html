@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Drag N Drop</title>
+</head>
+</html>
+<style>
+    body {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background-color: #374151;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .dropzone {
+        box-sizing: border-box;
+        width: 150px;
+        height: 150px;
+        border: 2px solid #9CA3AF;
+        background-color: white;
+        margin-right: 10px;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .fill {
+        width: 150px;
+        height: 150px;
+        background-image: url('https://source.unsplash.com/random/150x150');
+        cursor: pointer;
+    }
+    .over {
+        border-style: dashed;
+        background-color: #E5E7EB;
+    }
+    .invisible {
+        display: none;
+    }
+</style>
+<body>
+<div class="dropzone" >
+    <div class="fill" draggable="true"></div>
+</div>
+<div class="dropzone"></div>
+<div class="dropzone"></div>
+<div class="dropzone"></div>
+
+</body>
+<script>
+    const fillDom = document.querySelector('.fill');
+    const dropzoneDomList = document.querySelectorAll('.dropzone');
+    fillDom.addEventListener('dragstart', dragStart)
+    fillDom.addEventListener('dragend', dragEnd)
+    dropzoneDomList.forEach(dom => {
+        dom.addEventListener('dragover', dragOver);
+        dom.addEventListener('dragenter', dragEnter);
+        dom.addEventListener('dragleave', dragLeave);
+        dom.addEventListener('drop', drop)
+    })
+    function dragStart(e) {
+        setTimeout(() => {
+            fillDom.classList.add('invisible')
+        }, 0)
+    }
+    function dragEnd(e) {
+        fillDom.className = 'fill'
+    }
+    function dragOver(e) {
+        e.preventDefault();
+    }
+    function dragEnter(e) {
+        e.preventDefault();
+        e.target.classList.add('over')
+    }
+    function dragLeave(e) {
+        e.target.classList.remove('over')
+    }
+    function drop(e) {
+        e.preventDefault();
+        e.target.appendChild(fillDom);
+        e.target.classList.remove('over')
+    }
+</script>
