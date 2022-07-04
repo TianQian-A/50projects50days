@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Kinetic Loading</title>
+</head>
+<style>
+    :root {
+        --ani-time: 2s;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #282936;
+    }
+    .piece {
+        position: relative;
+        width: 100px;
+        height: 100px;
+    }
+    .piece::before,
+    .piece::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+        border: 50px solid transparent;
+        transform-origin: center center;
+    }
+    .piece::before {
+        border-left-color: white;
+        animation: rotate1 var(--ani-time) linear infinite;
+    }
+    .piece::after {
+        border-bottom-color: white;
+        animation: rotate2 var(--ani-time) linear infinite;
+    }
+    @keyframes rotate1 {
+        0% {
+            transform: rotate(0);
+        }
+        25%, 50% {
+            transform: rotate(180deg);
+        }
+        75%, 100% {
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes rotate2 {
+        0%, 25% {
+            transform: rotate(0);
+        }
+        50%, 75% {
+            transform: rotate(180deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<body>
+    <div class="piece"></div>
+</body>
+</html>

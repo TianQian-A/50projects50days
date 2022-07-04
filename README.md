@@ -23,3 +23,4 @@
 | 20  | [Button Ripple Effect](https://github.com/TianQian-A/50projects50days/tree/main/button-ripple-effect)                   |      [Demo](https://tianqian-a.github.io/50projects50days/button-ripple-effect)      |
 | 21  | [Drag N Drop](https://github.com/TianQian-A/50projects50days/tree/main/drag-n-drop)                                     |          [Demo](https://tianqian-a.github.io/50projects50days/drag-n-drop)           |                
 | 22  | [Drawing App](https://github.com/TianQian-A/50projects50days/tree/main/drawing-app)                                     |          [Demo](https://tianqian-a.github.io/50projects50days/drwaing-app)           |
+| 23  | [Kinetic Loading](https://github.com/TianQian-A/50projects50days/tree/main/kinetic-loading)                             |        [Demo](https://tianqian-a.github.io/50projects50days/kinetic-loading)         |
