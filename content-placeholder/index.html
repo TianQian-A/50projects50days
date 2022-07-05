@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Content Placeholder</title>
+</head>
+<style>
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background-color: #F7F7F7;
+    }
+    .placeholder-back {
+        background: linear-gradient(to right, #F9FAFB 0%, #F9FAFB 40%, #F3F4F6 50%, #F9FAFB 60%, #F9FAFB 100%);
+        background-size: 400% 400%;
+        animation: moveAni 1s linear infinite;
+        border-radius: 10px;
+    }
+    @keyframes moveAni {
+        from {
+            background-position: 350%;
+        }
+        to {
+            background-position: 275%;
+        }
+    }
+    .box {
+        width: 360px;
+        min-height: 400px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .box-pic {
+        width: 100%;
+        height: 200px;
+        border-radius: 0;
+    }
+    .box-pic > img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+    .box-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 200px;
+        padding: 0 30px 30px;
+        box-sizing: border-box;
+        background-color: white;
+
+    }
+    .box-content__title {
+        margin-bottom: 10px;
+        font-size: 18px;
+        line-height: 1;
+    }
+    .box-content__info {
+        font-size: 14px;
+        color: #9CA3AF;
+        line-height: 1.5;
+    }
+    .box-content-user {
+        display: flex;
+        margin-top: 20px;
+    }
+    .box-content-user-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1;
+    }
+    .box-content-user__avatar {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .box-content-user__avatar > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .box-content-user__name {
+        font-weight: bold;
+        font-size: 14px;
+    }
+    .box-content-user__time {
+        font-size: 12px;
+        color: #9CA3AF;
+    }
+</style>
+<body>
+    <div class="box">
+        <div id="pic" class="box-pic placeholder-back"></div>
+        <div class="box-content">
+            <h2 id="title" class="box-content__title placeholder-back">&nbsp;</h2>
+            <div id="info" class="box-content__info placeholder-back">&nbsp;</div>
+            <div class="box-content-user">
+                <div id="avatar" class="box-content-user__avatar placeholder-back"></div>
+                <div class="box-content-user-right">
+                    <div id="name" class="box-content-user__name placeholder-back">&nbsp;</div>
+                    <div id="time" class="box-content-user__time placeholder-back">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const placeholderBackList = document.querySelectorAll('.placeholder-back');
+    const picDom = document.getElementById('pic');
+    const titleDom = document.getElementById('title');
+    const infoDom = document.getElementById('info');
+    const avatarDom = document.getElementById('avatar');
+    const nameDom = document.getElementById('name');
+    const timeDom = document.getElementById('time');
+    let timer = setTimeout(() => {
+        clearTimeout(timer);
+        picDom.innerHTML = `<img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"/>`
+        titleDom.innerText = 'Lorem ipsum dolor sit amet';
+        infoDom.innerText = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore perferendis';
+        avatarDom.innerHTML = `<img src="https://randomuser.me/api/portraits/men/35.jpg">`;
+        nameDom.innerText = 'YuXin Ai';
+        timeDom.innerText = 'July, 5';
+        placeholderBackList.forEach(dom => dom.classList.remove('placeholder-back'))
+    }, 2000)
+</script>
+</html>
